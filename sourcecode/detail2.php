@@ -46,12 +46,12 @@ require_once('/xampp/htdocs/project_php/btth01/services/SongServices.php');
        
                 <div class="row mb-5">
                     <div class="col-sm-4">
-                        <img src="images/songs/cayvagio.jpg" class="img-fluid" alt="...">
+                        <img src="images/songs/longme.jpg" class="img-fluid" alt="...">
                     </div>
                     <div class="col-sm-8">
                         <?php 
                         $songServices = new SongServices();
-                        $songs = $songServices->getSong('Cây và gió');
+                        $songs = $songServices->getSong('Lòng mẹ');
                         ?>
                         <h5 class="card-title mb-2">
                             <a href="" class="text-decoration-none"><?php echo $songs[0]['ten_bhat']?></a>
