@@ -1,3 +1,22 @@
+<?php
+    require 'connect.php';
+
+    if ($connect != null) {
+        try {
+            $sql = "SELECT * FROM theloai";
+            
+            $statement = $connect->prepare($sql);
+            $statement->execute();
+
+            $types = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    } else {
+        echo "Không có kết nối đến cơ sở dữ liệu.";
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +26,7 @@
     <title>Music for Life</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="css/style_login.css">
+
 </head>
 <body>
     <header>
@@ -57,26 +76,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Nhạc trữ tình</td>
-                            <td>
-                                <a href="edit_category.php?id=1"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </td>
-                            <td>
-                                <a href=""><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Nhạc cách mạng</td>
-                            <td>
-                                <a href="edit_category.php?id=2"><i class="fa-solid fa-pen-to-square"></i></a>
-                            </td>
-                            <td>
-                                <a href=""><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
+                        <?php foreach ($types as $type): ?>
+                            <tr>    
+                                <th scope="row"><?php echo $type['ma_tloai']; ?></th>
+                                <td>
+                                    <?php echo $type['ten_tloai']; ?>
+                                </td>
+                                <td>
+                                    <a href="edit_category.php?id=<?php echo $type['ma_tloai']; ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                </td>
+                                <td>
+                                    <a href="delete_category.php?id=<?php echo $type['ma_tloai']; ?>" onclick="return confirmDelete();">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </td>
+                                <script>
+                                    function confirmDelete() {
+                                        return confirm("Bạn có chắc chắn muốn xóa không?");
+                                    }
+                                </script>
+
+                            </tr>
+                        <?php endforeach; ?>
                        
                     </tbody>
                 </table>

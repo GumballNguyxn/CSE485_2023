@@ -1,3 +1,34 @@
+<?php
+    require'connect.php';
+
+        $id = empty($_GET['id'])?$_POST['id']: $_GET['id'];
+        $sql = "SELECT * FROM theloai WHERE ma_tloai=$id";
+        try {
+            $statement = $connect->prepare($sql);
+            
+            $statement->execute();
+            $type = $statement->fetch();
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+?>
+
+<?php
+        if (isset($_POST['submit'])) {
+            $id = $type['ma_tloai'];
+            $name_update = $_POST['txtCatName'];
+        
+            try {
+                $statement = $connect->prepare("UPDATE theloai SET ten_tloai=? WHERE ma_tloai=?");
+                $statement->execute([$name_update, $id]);
+                header('location: category.php');
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+         
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,25 +78,29 @@
         <div class="row">
             <div class="col-sm">
                 <h3 class="text-center text-uppercase fw-bold">Sửa thông tin thể loại</h3>
-                <form action="process_add_category.php" method="post">
+                <form action="edit_category.php" method="post">
+                <input type="hidden" name="id" value="<?=$type['ma_tloai']?>">
                 <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCatId">Mã thể loại</span>
-                        <input type="text" class="form-control" name="txtCatId" readonly value="1">
+                        <input type="text" class="form-control" name="txtCatId" value="<?=$type['ma_tloai']?>" readonly>
                     </div>
 
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCatName">Tên thể loại</span>
-                        <input type="text" class="form-control" name="txtCatName" value = "Nhạc trữ tình">
+                        <input type="text" class="form-control" name="txtCatName" value = "<?=$type['ten_tloai']?>">
                     </div>
 
                     <div class="form-group  float-end ">
-                        <input type="submit" value="Lưu lại" class="btn btn-success">
+                        <input type="submit" name="submit" value="Lưu lại" class="btn btn-success">
                         <a href="category.php" class="btn btn-warning ">Quay lại</a>
                     </div>
-                </form>
+                </form> 
             </div>
         </div>
     </main>
+   
+        
+
     <footer class="bg-white d-flex justify-content-center align-items-center border-top border-secondary  border-2" style="height:80px">
         <h4 class="text-center text-uppercase fw-bold">TLU's music garden</h4>
     </footer>

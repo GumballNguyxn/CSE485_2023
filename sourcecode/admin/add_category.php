@@ -1,3 +1,30 @@
+<?php
+    require 'connect.php';
+
+    $name_error = '';
+
+    if (!empty($_POST['submit'])) {
+        $name = htmlspecialchars($_POST['txtCatName']);
+
+        if (!empty($name)) {
+            try {
+                $sql = "INSERT INTO theloai(ten_tloai) VALUES (:ten_tloai)";
+                $statement = $connect->prepare($sql);
+                $statement->bindParam(':ten_tloai', $name, PDO::PARAM_STR);
+                $statement->execute();
+    
+                header("Location: category.php");
+                exit();
+            } catch (PDOException $e) {
+                echo "Lỗi: " . $e->getMessage();
+            }
+        } else {
+            $name_error = 'Hãy nhập tên thể loại';
+        }
+    }
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,14 +74,20 @@
         <div class="row">
             <div class="col-sm">
                 <h3 class="text-center text-uppercase fw-bold">Thêm mới thể loại</h3>
-                <form action="process_add_category.php" method="post">
+                
+                <form action="add_category.php" method="post">
                     <div class="input-group mt-3 mb-3">
                         <span class="input-group-text" id="lblCatName">Tên thể loại</span>
                         <input type="text" class="form-control" name="txtCatName" >
                     </div>
+                    <?php if (!empty($name_error)) : ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?php echo $name_error; ?>
+                        </div>
+                    <?php endif; ?>
 
                     <div class="form-group  float-end ">
-                        <input type="submit" value="Thêm" class="btn btn-success">
+                        <input type="submit" value="Thêm" class="btn btn-success" name="submit">
                         <a href="category.php" class="btn btn-warning ">Quay lại</a>
                     </div>
                 </form>
