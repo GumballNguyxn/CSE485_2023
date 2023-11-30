@@ -35,7 +35,7 @@ CREATE TABLE `baiviet` (
   `tomtat` text NOT NULL,
   `noidung` text DEFAULT NULL,
   `ma_tgia` int(10) UNSIGNED NOT NULL,
-  `ngayviet` datetime NOT NULL DEFAULT curdate(),
+  `ngayviet` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   `hinhanh` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
