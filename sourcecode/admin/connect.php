@@ -1,12 +1,11 @@
 <?php
-    define("DATABASE_SERVER", "localhost");
-    define("DATABASE_USER", "root");
-    define("DATABASE_PASSWORD", "286");
-    define("DATABASE_NAME", "BTTH01_CSE485");
+    $database_server = "localhost";
+    $database_user = "root";
+    $database_password = "286";
+    $database_name = "BTTH01_CSE485";
 
     try {
-        $connect = new PDO("mysql:host=".DATABASE_SERVER.";dbname=".DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD);
-        $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $connect = new PDO("mysql:host=$database_server;dbname=$database_name", $database_user, $database_password);
         
     } catch(PDOException $e) {
         echo "Error: ".$e->getMessage();
