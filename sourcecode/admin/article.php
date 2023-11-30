@@ -13,6 +13,7 @@
 $hostName = 'localhost';
 $userName = 'root';
 $databaseName = 'btth01_cse485';
+$passWord = '123456789';
 $charset = 'utf8mb4';
 
 $conn = new mysqli($hostName, $userName, $passWord, $databaseName);
