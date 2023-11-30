@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 29, 2023 lúc 11:01 AM
+-- Thời gian đã tạo: Th10 29, 2023 lúc 06:32 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -109,6 +109,28 @@ INSERT INTO `theloai` (`ma_tloai`, `ten_tloai`) VALUES
 (7, 'Rock'),
 (8, 'R&B');
 
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `users`
+--
+
+CREATE TABLE `users` (
+  `userid` int(10) UNSIGNED NOT NULL,
+  `username` varchar(200) NOT NULL,
+  `userpassword` varchar(200) NOT NULL,
+  `isadmin` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `users`
+--
+
+INSERT INTO `users` (`userid`, `username`, `userpassword`, `isadmin`) VALUES
+(1, 'admin', 'admin', b'1'),
+(2, 'tai', '123', b'0'),
+(3, 'doan', '456', b'0');
+
 --
 -- Chỉ mục cho các bảng đã đổ
 --
@@ -132,6 +154,12 @@ ALTER TABLE `tacgia`
 --
 ALTER TABLE `theloai`
   ADD PRIMARY KEY (`ma_tloai`);
+
+--
+-- Chỉ mục cho bảng `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`userid`);
 
 --
 -- Các ràng buộc cho các bảng đã đổ
