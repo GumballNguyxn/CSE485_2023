@@ -1,34 +1,3 @@
-<?php
-    require'connect.php';
-
-        $id = empty($_GET['id'])?$_POST['id']: $_GET['id'];
-        $sql = "SELECT * FROM theloai WHERE ma_tloai=$id";
-        try {
-            $statement = $connect->prepare($sql);
-            
-            $statement->execute();
-            $type = $statement->fetch();
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
-?>
-
-<?php
-        if (isset($_POST['submit'])) {
-            $id = $type['ma_tloai'];
-            $name_update = $_POST['txtCatName'];
-        
-            try {
-                $statement = $connect->prepare("UPDATE theloai SET ten_tloai=? WHERE ma_tloai=?");
-                $statement->execute([$name_update, $id]);
-                header('location: category.php');
-            } catch (PDOException $e) {
-                echo "Error: " . $e->getMessage();
-            }
-        }
-         
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,30 +46,43 @@
         <!-- <h3 class="text-center text-uppercase mb-3 text-primary">CẢM NHẬN VỀ BÀI HÁT</h3> -->
         <div class="row">
             <div class="col-sm">
-                <h3 class="text-center text-uppercase fw-bold">Sửa thông tin thể loại</h3>
-                <form action="edit_category.php" method="post">
-                <input type="hidden" name="id" value="<?=$type['ma_tloai']?>">
-                <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text" id="lblCatId">Mã thể loại</span>
-                        <input type="text" class="form-control" name="txtCatId" value="<?=$type['ma_tloai']?>" readonly>
-                    </div>
-
-                    <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text" id="lblCatName">Tên thể loại</span>
-                        <input type="text" class="form-control" name="txtCatName" value = "<?=$type['ten_tloai']?>">
-                    </div>
-
-                    <div class="form-group  float-end ">
-                        <input type="submit" name="submit" value="Lưu lại" class="btn btn-success">
-                        <a href="category.php" class="btn btn-warning ">Quay lại</a>
-                    </div>
-                </form> 
+                <a href="add_category.php" class="btn btn-success">Thêm mới</a>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Tên thể loại</th>
+                            <th>Sửa</th>
+                            <th>Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Nhạc trữ tình</td>
+                            <td>
+                                <a href="edit_category.php?id=1"><i class="fa-solid fa-pen-to-square"></i></a>
+                            </td>
+                            <td>
+                                <a href=""><i class="fa-solid fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Nhạc cách mạng</td>
+                            <td>
+                                <a href="edit_category.php?id=2"><i class="fa-solid fa-pen-to-square"></i></a>
+                            </td>
+                            <td>
+                                <a href=""><i class="fa-solid fa-trash"></i></a>
+                            </td>
+                        </tr>
+                       
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>
-   
-        
-
     <footer class="bg-white d-flex justify-content-center align-items-center border-top border-secondary  border-2" style="height:80px">
         <h4 class="text-center text-uppercase fw-bold">TLU's music garden</h4>
     </footer>
