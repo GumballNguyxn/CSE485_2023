@@ -1,5 +1,13 @@
-<?php 
-require_once('/xampp/htdocs/project_php/btth01/services/SongServices.php');
+<?php
+require_once ('./config/config.php') ;
+require_once APP_ROOT.'/services/Songservices.php'; 
+$songServices = new SongServices();
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $songs = $songServices->getSong($id);
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -43,24 +51,21 @@ require_once('/xampp/htdocs/project_php/btth01/services/SongServices.php');
 
     </header>
     <main class="container mt-5">
+        <!-- <h3 class="text-center text-uppercase mb-3 text-primary">CẢM NHẬN VỀ BÀI HÁT</h3> -->
        
                 <div class="row mb-5">
                     <div class="col-sm-4">
-                        <img src="images/songs/cayvagio.jpg" class="img-fluid" alt="...">
+                        <img src="images/songs/<?= $id?>.jpg" class="img-fluid" alt="...">
                     </div>
                     <div class="col-sm-8">
-                        <?php 
-                        $songServices = new SongServices();
-                        $songs = $songServices->getSong('Cây và gió');
-                        ?>
                         <h5 class="card-title mb-2">
-                            <a href="" class="text-decoration-none"><?php echo $songs[0]['ten_bhat']?></a>
+                            <a href="" class="text-decoration-none"><?= $songs[0]['ten_bhat'] ?></a>
                         </h5>
-                        <p class="card-text"><span class=" fw-bold">Bài hát: </span><?php echo $songs[0]['ten_bhat']?></p>
-                        <p class="card-text"><span class=" fw-bold">Thể loại: </span><?php echo $songs[0]['ten_tloai']?></p>
-                        <p class="card-text"><span class=" fw-bold">Tóm tắt: </span><?php echo $songs[0]['tomtat']?></p>
-                        <p class="card-text"><span class=" fw-bold">Nội dung: </span><?php echo $songs[0]['tomtat']?></p>
-                        <p class="card-text"><span class=" fw-bold">Tác giả: </span><?php echo $songs[0]['ten_tgia']?></p>
+                        <p class="card-text"><span class=" fw-bold">Bài hát: </span><?= $songs[0]['ten_bhat'] ?></p>
+                        <p class="card-text"><span class=" fw-bold">Thể loại: </span><?= $songs[0]['ten_tloai'] ?></p>
+                        <p class="card-text"><span class=" fw-bold">Tóm tắt: </span><?= $songs[0]['tomtat'] ?></p>
+                        <p class="card-text"><span class=" fw-bold">Nội dung: </span><?= $songs[0]['tomtat'] ?></p>
+                        <p class="card-text"><span class=" fw-bold">Tác giả: </span><?= $songs[0]['ten_tgia'] ?></p>
 
                     </div>          
         </div>
