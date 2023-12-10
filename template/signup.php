@@ -42,53 +42,43 @@
     <main class="container mt-5 mb-5">
         <!-- <h3 class="text-center text-uppercase mb-3 text-primary">CẢM NHẬN VỀ BÀI HÁT</h3> -->
         <div class="d-flex justify-content-center h-100">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Sign In</h3>
-                        <div class="d-flex justify-content-end social_icon">
-                            <span><i class="fab fa-facebook-square"></i></span>
-                            <span><i class="fab fa-google-plus-square"></i></span>
-                            <span><i class="fab fa-twitter-square"></i></span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <?php
-                            if(isset($_GET['error'])){
-                                echo "<p style='color:red'>{$_GET['error']}</p>";
-                            }
-                            if(isset($_GET['success'])){
-                                echo "<p style='color:green'>{$_GET['success']}</p>";
-                            }
-                        ?>
-                        <form action="process_login.php" method="POST">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="txtUser"><i class="fas fa-user"></i></span>
-                                <input type="text" class="form-control" placeholder="username" id="user" name="user">
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="txtPass"><i class="fas fa-key"></i></span>
-                                <input type="text" class="form-control" placeholder="password" id="pass" name="pass">
-                            </div>
-                            
-                            <div class="row align-items-center remember">
-                                <input type="checkbox">Remember Me
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="Login" class="btn float-end login_btn">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-center ">
-                            Don't have an account?<a href="signup.php" class="text-warning text-decoration-none">Sign Up</a>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <a href="#" class="text-warning text-decoration-none">Forgot your password?</a>
-                        </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Sign Up</h3>
+                    <div class="d-flex justify-content-end social_icon">
+                        <span><i class="fab fa-facebook-square"></i></span>
+                        <span><i class="fab fa-google-plus-square"></i></span>
+                        <span><i class="fab fa-twitter-square"></i></span>
                     </div>
                 </div>
+                <div class="card-body">
+                    <?php
+                        if(isset($_GET['error'])){
+                            echo "<p style='color:red'>{$_GET['error']}</p>";
+                        }
+                    ?>
+                    <form action="process_signup.php" method="POST">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="txtUser"><i class="fas fa-user"></i></span>
+                            <input type="text" class="form-control" placeholder="username or email" id="user" name="user">
+                        </div>
 
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="txtPass"><i class="fas fa-key"></i></span>
+                            <input type="text" class="form-control" placeholder="password" id="pass" name="pass">
+                        </div>
+                           
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="txtCfPass"><i class="fas fa-key"></i></span>
+                            <input type="text" class="form-control" placeholder="confirm password" id="cfpass" name="cfpass">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Sign Up" class="btn float-end login_btn">
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </main>
     <footer class="bg-white d-flex justify-content-center align-items-center border-top border-secondary  border-2" style="height:80px">
